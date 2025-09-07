@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "users")
 public class User {
+
     @Id
     private String id;
 
@@ -12,22 +13,13 @@ public class User {
     private Integer age;
     private Double weightKg;
     private Double heightCm;
-    private String gender; // male/female/other
-    private String activityLevel; // sedentary/light/moderate/active
-    private String goal; // lose/gain/maintain
-    private Integer targetCalories; // optional calculated field
+    private String gender; // "male" or "female"
+    private String activityLevel; // "LOW" | "MEDIUM" | "HIGH"
+    private String goalType; // "LOSE" | "GAIN" | "MAINTAIN"
+    private Double targetWeightKg; // optional
+    private Integer targetCalories; // optional, can be filled by recommendation endpoint
 
     public User() {}
-
-    public User(String name, Integer age, Double weightKg, Double heightCm, String gender, String activityLevel, String goal) {
-        this.name = name;
-        this.age = age;
-        this.weightKg = weightKg;
-        this.heightCm = heightCm;
-        this.gender = gender;
-        this.activityLevel = activityLevel;
-        this.goal = goal;
-    }
 
     // getters & setters
     public String getId() { return id; }
@@ -51,8 +43,11 @@ public class User {
     public String getActivityLevel() { return activityLevel; }
     public void setActivityLevel(String activityLevel) { this.activityLevel = activityLevel; }
 
-    public String getGoal() { return goal; }
-    public void setGoal(String goal) { this.goal = goal; }
+    public String getGoalType() { return goalType; }
+    public void setGoalType(String goalType) { this.goalType = goalType; }
+
+    public Double getTargetWeightKg() { return targetWeightKg; }
+    public void setTargetWeightKg(Double targetWeightKg) { this.targetWeightKg = targetWeightKg; }
 
     public Integer getTargetCalories() { return targetCalories; }
     public void setTargetCalories(Integer targetCalories) { this.targetCalories = targetCalories; }
