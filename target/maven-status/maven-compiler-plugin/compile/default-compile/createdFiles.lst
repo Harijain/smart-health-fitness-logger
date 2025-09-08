@@ -1,9 +1,12 @@
-com\villain\healthtracker\model\User.class
 com\villain\healthtracker\SmartHealthFitnessLoggerApp.class
-com\villain\healthtracker\controller\HealthController.class
-com\villain\healthtracker\controller\GoalController.class
-com\villain\healthtracker\repository\FoodRepository.class
-com\villain\healthtracker\repository\UserRepository.class
 com\villain\healthtracker\controller\UserController.class
 com\villain\healthtracker\controller\FoodController.class
 com\villain\healthtracker\model\Food.class
+com\villain\healthtracker\model\User.class
+com\villain\healthtracker\controller\HealthController.class
+com\villain\healthtracker\controller\GoalController.class
+com\villain\healthtracker\repository\FoodRepository.class
+com\villain\healthtracker\model\Exercise.class
+com\villain\healthtracker\repository\UserRepository.class
+com\villain\healthtracker\repository\ExerciseRepository.class
+com\villain\healthtracker\controller\ExerciseController.class
