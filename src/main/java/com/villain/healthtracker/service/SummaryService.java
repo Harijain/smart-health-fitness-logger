@@ -1,24 +1,19 @@
 package com.villain.healthtracker.service;
 
-import com.villain.healthtracker.dto.SummaryResponse;
-import com.villain.healthtracker.model.Goal;
-import com.villain.healthtracker.model.Food;
 import com.villain.healthtracker.model.Exercise;
-import com.villain.healthtracker.repository.GoalRepository;
-import com.villain.healthtracker.repository.FoodRepository;
+import com.villain.healthtracker.model.Food;
+import com.villain.healthtracker.model.Goal;
+import com.villain.healthtracker.model.Summary;
 import com.villain.healthtracker.repository.ExerciseRepository;
-
+import com.villain.healthtracker.repository.FoodRepository;
+import com.villain.healthtracker.repository.GoalRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
 public class SummaryService {
-
-    @Autowired
-    private GoalRepository goalRepo;
 
     @Autowired
     private FoodRepository foodRepo;
@@ -26,36 +21,39 @@ public class SummaryService {
     @Autowired
     private ExerciseRepository exerciseRepo;
 
-    public SummaryResponse getUserSummary(String userId) {
-        // Step 1: Goal fetch with safety
-        Goal goal = goalRepo.findByUserId(userId).orElse(null);
-        if (goal == null) {
-            throw new RuntimeException("Goal not set for user: " + userId);
-        }
+    @Autowired
+    private GoalRepository goalRepo; // ✅ correct variable name
 
-        // Step 2: Food list safe fetch
+    public Summary getUserSummary(String userId) {
+        // User ke foods, exercises, goals nikal lo
         List<Food> foods = foodRepo.findByUserId(userId);
-        if (foods == null) {
-            foods = new ArrayList<>();
-        }
-
-        // Step 3: Exercise list safe fetch
         List<Exercise> exercises = exerciseRepo.findByUserId(userId);
-        if (exercises == null) {
-            exercises = new ArrayList<>();
+        Goal goal = goalRepo.findByUserId(userId).orElse(null);
+
+        double totalCaloriesConsumed = 0;
+        double totalCaloriesBurned = 0;
+
+        for (Food food : foods) {
+            totalCaloriesConsumed += food.getCalories();
         }
 
-        // Step 4: Calculate totals
-        double totalCalories = foods.stream().mapToDouble(Food::getCalories).sum()
-                - exercises.stream().mapToDouble(Exercise::getCaloriesBurned).sum();
+        for (Exercise ex : exercises) {
+            totalCaloriesBurned += ex.getCaloriesBurned();
+        }
 
-        // Step 5: Build response
-        SummaryResponse response = new SummaryResponse();
-        response.setUserId(userId);
-        response.setDailyCaloriesTarget(goal.getDailyCaloriesTarget());
-        response.setGoalType(goal.getGoalType());
-        response.setNetCalories(totalCalories);
+        double netCalories = totalCaloriesConsumed - totalCaloriesBurned;
 
-        return response;
+        Summary summary = new Summary();
+        summary.setUserId(userId);
+        summary.setCaloriesConsumed(totalCaloriesConsumed);
+        summary.setCaloriesBurned(totalCaloriesBurned);
+        summary.setNetCalories(netCalories);
+
+        if (goal != null) {
+            summary.setGoalType(goal.getGoalType());
+            summary.setTargetCalories(goal.getDailyCaloriesTarget());
+        }
+
+        return summary;
     }
 }

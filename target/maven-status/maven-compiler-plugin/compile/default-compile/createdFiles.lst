@@ -1,5 +1,4 @@
 com\villain\healthtracker\SmartHealthFitnessLoggerApp.class
-com\villain\healthtracker\service\SummaryService.class
 com\villain\healthtracker\model\Goal.class
 com\villain\healthtracker\controller\UserController.class
 com\villain\healthtracker\controller\FoodController.class
