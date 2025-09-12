@@ -1,5 +1,6 @@
 package com.villain.healthtracker.repository;
 
+import com.villain.healthtracker.model.Sleep; // if package differs, correct it
 import com.villain.healthtracker.model.Sleep;
 import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;

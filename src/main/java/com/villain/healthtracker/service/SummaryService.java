@@ -6,11 +6,15 @@ import com.villain.healthtracker.model.Goal;
 import com.villain.healthtracker.model.Summary;
 import com.villain.healthtracker.repository.ExerciseRepository;
 import com.villain.healthtracker.repository.FoodRepository;
+import com.villain.healthtracker.repository.GoalRepository; // if wrong remove
 import com.villain.healthtracker.repository.GoalRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SummaryService {
@@ -22,24 +26,27 @@ public class SummaryService {
     private ExerciseRepository exerciseRepo;
 
     @Autowired
-    private GoalRepository goalRepo; // ✅ correct variable name
+    private GoalRepository goalRepo;
 
     public Summary getUserSummary(String userId) {
-        // User ke foods, exercises, goals nikal lo
+        // safe fetch lists (repo returns empty list if none)
         List<Food> foods = foodRepo.findByUserId(userId);
+        if (foods == null) foods = Collections.emptyList();
+
         List<Exercise> exercises = exerciseRepo.findByUserId(userId);
-        Goal goal = goalRepo.findByUserId(userId).orElse(null);
+        if (exercises == null) exercises = Collections.emptyList();
 
-        double totalCaloriesConsumed = 0;
-        double totalCaloriesBurned = 0;
+        // Goal may be absent
+        Optional<Goal> goalOpt = goalRepo.findByUserId(userId);
+        Goal goal = goalOpt.orElse(null);
 
-        for (Food food : foods) {
-            totalCaloriesConsumed += food.getCalories();
-        }
+        double totalCaloriesConsumed = foods.stream()
+                                           .mapToDouble(f -> f.getCalories())
+                                           .sum();
 
-        for (Exercise ex : exercises) {
-            totalCaloriesBurned += ex.getCaloriesBurned();
-        }
+        double totalCaloriesBurned = exercises.stream()
+                                              .mapToDouble(e -> e.getCaloriesBurned())
+                                              .sum();
 
         double netCalories = totalCaloriesConsumed - totalCaloriesBurned;
 

@@ -6,9 +6,11 @@ public class Summary {
     private double caloriesBurned;
     private double netCalories;
     private String goalType;
-    private double targetCalories;
+    private Integer targetCalories;
 
-    // Getters and Setters
+    public Summary() {}
+
+    // Getters & Setters
     public String getUserId() { return userId; }
     public void setUserId(String userId) { this.userId = userId; }
 
@@ -24,6 +26,6 @@ public class Summary {
     public String getGoalType() { return goalType; }
     public void setGoalType(String goalType) { this.goalType = goalType; }
 
-    public double getTargetCalories() { return targetCalories; }
-    public void setTargetCalories(double targetCalories) { this.targetCalories = targetCalories; }
+    public Integer getTargetCalories() { return targetCalories; }
+    public void setTargetCalories(Integer targetCalories) { this.targetCalories = targetCalories; }
 }
