@@ -4,9 +4,10 @@ import com.villain.healthtracker.exception.ResourceNotFoundException;
 import com.villain.healthtracker.model.Summary;
 import com.villain.healthtracker.service.SummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/summary")
@@ -15,30 +16,31 @@ public class SummaryController {
     @Autowired
     private SummaryService summaryService;
 
-    // ✅ POST (Save summary manually)
+    // ✅ Create summary
     @PostMapping
-    public ResponseEntity<Summary> createSummary(@RequestBody Summary summary) {
-        Summary savedSummary = summaryService.saveSummary(summary);
-        return ResponseEntity.status(HttpStatus.CREATED).body(savedSummary);
+    public Summary createSummary(@RequestBody Summary summary) {
+        return summaryService.saveSummary(summary);
     }
 
-    // ✅ GET (Get auto-calculated summary by userId)
-    @GetMapping("/{userId}")
-    public ResponseEntity<Summary> getSummary(@PathVariable String userId) {
-        Summary summary = summaryService.getSummaryByUserId(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("Summary not found for userId: " + userId));
+    // ✅ Get summary by summaryId
+    @GetMapping("/{id}")
+    public ResponseEntity<Summary> getSummaryById(@PathVariable String id) {
+        Summary summary = summaryService.getSummaryById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Summary not found for id: " + id));
         return ResponseEntity.ok(summary);
     }
 
-    // ✅ PUT (Update existing summary by ID)
-    @PutMapping("/{id}")
-    public ResponseEntity<Summary> updateSummary(@PathVariable String id, @RequestBody Summary updatedSummary) {
-        Summary summary = summaryService.updateSummary(id, updatedSummary)
-                .orElseThrow(() -> new ResourceNotFoundException("Summary not found with id: " + id));
-        return ResponseEntity.ok(summary);
+    // ✅ Get all summaries by userId
+    @GetMapping("/user/{userId}")
+    public ResponseEntity<List<Summary>> getSummariesByUserId(@PathVariable String userId) {
+        List<Summary> summaries = summaryService.getSummaryByUserId(userId);
+        if (summaries.isEmpty()) {
+            throw new ResourceNotFoundException("No summaries found for userId: " + userId);
+        }
+        return ResponseEntity.ok(summaries);
     }
 
-    // ✅ DELETE (Delete summary by ID)
+    // ✅ Delete summary
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSummary(@PathVariable String id) {
         summaryService.deleteSummary(id);

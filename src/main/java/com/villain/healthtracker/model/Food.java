@@ -1,5 +1,7 @@
 package com.villain.healthtracker.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,50 +11,33 @@ public class Food {
     @Id
     private String id;
 
-    private String name;
-    private int calories;
+    @NotBlank(message = "UserId is required")
+    private String userId;
 
-    private String userId; // 👈 Add kiya user ke link ke liye
+    @NotBlank(message = "Food name is required")
+    private String name;
+
+    @Positive(message = "Calories must be positive")
+    private double calories;
 
     public Food() {}
 
-    public Food(String name, int calories, String userId) {
+    public Food(String userId, String name, double calories) {
+        this.userId = userId;
         this.name = name;
         this.calories = calories;
-        this.userId = userId;
     }
 
-    // --- Getters and Setters ---
+    // Getters & Setters
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    public String getId() {
-        return id;
-    }
+    public String getUserId() { return userId; }
+    public void setUserId(String userId) { this.userId = userId; }
 
-    public void setId(String id) {
-        this.id = id;
-    }
+    public String getName() { return name; }
+    public void setName(String name) { this.name = name; }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getCalories() {
-        return calories;
-    }
-
-    public void setCalories(int calories) {
-        this.calories = calories;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
+    public double getCalories() { return calories; }
+    public void setCalories(double calories) { this.calories = calories; }
 }

@@ -7,6 +7,7 @@ C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracke
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\controller\UserController.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\dto\SummaryResponse.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\exception\GlobalExceptionHandler.java
+C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\exception\ResourceNotFoundException.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\model\Exercise.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\model\Food.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\model\Goal.java
