@@ -1,8 +1,8 @@
 package com.villain.healthtracker.controller;
 
 import com.villain.healthtracker.model.Food;
-import com.villain.healthtracker.repository.FoodRepository;
-import jakarta.validation.Valid;
+import com.villain.healthtracker.service.FoodService;
+import com.villain.healthtracker.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,19 +10,36 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/food")
+@RequestMapping("/api/foods")  //  Important
 public class FoodController {
 
     @Autowired
-    private FoodRepository foodRepo;
+    private FoodService foodService;
 
+    //  Add food
     @PostMapping
-    public ResponseEntity<Food> createFood(@Valid @RequestBody Food food) {
-        return ResponseEntity.ok(foodRepo.save(food));
+    public Food createFood(@RequestBody Food food) {
+        return foodService.saveFood(food);
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<Food>> getFoods(@PathVariable String userId) {
-        return ResponseEntity.ok(foodRepo.findByUserId(userId));
+    //  Get all foods by userId
+    @GetMapping("/user/{userId}")
+    public List<Food> getFoodsByUser(@PathVariable String userId) {
+        return foodService.getFoodsByUserId(userId);
+    }
+
+    //  Get food by id
+    @GetMapping("/{id}")
+    public ResponseEntity<Food> getFoodById(@PathVariable String id) {
+        Food food = foodService.getFoodById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Food not found with id: " + id));
+        return ResponseEntity.ok(food);
+    }
+
+    // ✅ Delete food
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteFood(@PathVariable String id) {
+        foodService.deleteFood(id);
+        return ResponseEntity.noContent().build();
     }
 }

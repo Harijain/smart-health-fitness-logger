@@ -1,26 +1,33 @@
 package com.villain.healthtracker.controller;
 
 import com.villain.healthtracker.model.Exercise;
-import com.villain.healthtracker.repository.ExerciseRepository;
+import com.villain.healthtracker.service.ExerciseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/exercises")
+@RequestMapping("/api/exercise")
 public class ExerciseController {
 
     @Autowired
-    private ExerciseRepository exerciseRepository;
+    private ExerciseService service;
 
     @PostMapping
-    public Exercise addExercise(@RequestBody Exercise exercise) {
-        return exerciseRepository.save(exercise);
+    public ResponseEntity<Exercise> addExercise(@RequestBody Exercise exercise) {
+        return ResponseEntity.ok(service.saveExercise(exercise));
     }
 
     @GetMapping("/{userId}")
-    public List<Exercise> getExercisesByUser(@PathVariable String userId) {
-        return exerciseRepository.findByUserId(userId);
+    public ResponseEntity<List<Exercise>> getExercises(@PathVariable String userId) {
+        return ResponseEntity.ok(service.getExercisesByUserId(userId));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteExercise(@PathVariable String id) {
+        service.deleteExercise(id);
+        return ResponseEntity.ok("Exercise deleted successfully");
     }
 }

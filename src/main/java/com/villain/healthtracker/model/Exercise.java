@@ -1,39 +1,28 @@
 package com.villain.healthtracker.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "exercises")
 public class Exercise {
+
     @Id
     private String id;
+
+    @NotBlank(message = "User ID is required")
     private String userId;
+
+    @NotBlank(message = "Exercise name is required")
     private String name;
-    private int durationMinutes;
+
+    @Positive(message = "Calories burned must be positive")
     private double caloriesBurned;
-
-    public Exercise() {}
-
-    public Exercise(String userId, String name, int durationMinutes, double caloriesBurned) {
-        this.userId = userId;
-        this.name = name;
-        this.durationMinutes = durationMinutes;
-        this.caloriesBurned = caloriesBurned;
-    }
-
-    // Getters & Setters
-    public String getId() { return id; }
-    public void setId(String id) { this.id = id; }
-
-    public String getUserId() { return userId; }
-    public void setUserId(String userId) { this.userId = userId; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
-
-    public int getDurationMinutes() { return durationMinutes; }
-    public void setDurationMinutes(int durationMinutes) { this.durationMinutes = durationMinutes; }
-
-    public double getCaloriesBurned() { return caloriesBurned; }
-    public void setCaloriesBurned(double caloriesBurned) { this.caloriesBurned = caloriesBurned; }
 }

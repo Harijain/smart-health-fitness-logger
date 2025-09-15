@@ -20,5 +20,9 @@ C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracke
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\repository\SleepRepository.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\repository\SummaryRepository.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\repository\UserRepository.java
+C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\service\ExerciseService.java
+C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\service\FoodService.java
+C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\service\GoalService.java
+C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\service\SleepService.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\service\SummaryService.java
 C:\Users\User\smart-health-fitness-logger\src\main\java\com\villain\healthtracker\SmartHealthFitnessLoggerApp.java

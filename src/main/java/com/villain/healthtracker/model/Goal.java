@@ -1,50 +1,28 @@
 package com.villain.healthtracker.model;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Document(collection = "goals")
 public class Goal {
+
     @Id
     private String id;
 
+    @NotBlank(message = "User ID is required")
     private String userId;
-    private int dailyCaloriesTarget;
-    private String goalType; // LOSE / GAIN / MAINTAIN
 
-    public Goal() {}
+    @NotBlank(message = "Goal type is required")
+    private String goalType; // e.g. LOSE / GAIN / MAINTAIN
 
-    public Goal(String userId, int dailyCaloriesTarget, String goalType) {
-        this.userId = userId;
-        this.dailyCaloriesTarget = dailyCaloriesTarget;
-        this.goalType = goalType;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public int getDailyCaloriesTarget() {
-        return dailyCaloriesTarget;
-    }
-
-    public void setDailyCaloriesTarget(int dailyCaloriesTarget) {
-        this.dailyCaloriesTarget = dailyCaloriesTarget;
-    }
-
-    public String getGoalType() {
-        return goalType;
-    }
-
-    public void setGoalType(String goalType) {
-        this.goalType = goalType;
-    }
+    @Positive(message = "Target calories must be positive")
+    private double dailyCaloriesTarget;
 }

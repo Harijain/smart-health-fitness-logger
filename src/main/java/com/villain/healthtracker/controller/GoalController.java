@@ -1,29 +1,31 @@
 package com.villain.healthtracker.controller;
 
 import com.villain.healthtracker.model.Goal;
-import com.villain.healthtracker.repository.GoalRepository;
+import com.villain.healthtracker.service.GoalService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/goals")
+@RequestMapping("/api/goal")
 public class GoalController {
 
     @Autowired
-    private GoalRepository goalRepository;
+    private GoalService service;
 
     @PostMapping
-    public Goal createGoal(@RequestBody Goal goal) {
-        return goalRepository.save(goal);
+    public ResponseEntity<Goal> addGoal(@RequestBody Goal goal) {
+        return ResponseEntity.ok(service.saveGoal(goal));
     }
 
     @GetMapping("/{userId}")
-    public List<Goal> getGoalsByUser(@PathVariable String userId) {
-        return goalRepository.findAll()
-                .stream()
-                .filter(g -> g.getUserId().equals(userId))
-                .toList();
+    public ResponseEntity<Goal> getGoal(@PathVariable String userId) {
+        return ResponseEntity.ok(service.getGoalByUserId(userId));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteGoal(@PathVariable String id) {
+        service.deleteGoal(id);
+        return ResponseEntity.ok("Goal deleted successfully");
     }
 }
