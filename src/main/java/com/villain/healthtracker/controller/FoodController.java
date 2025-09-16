@@ -2,44 +2,47 @@ package com.villain.healthtracker.controller;
 
 import com.villain.healthtracker.model.Food;
 import com.villain.healthtracker.service.FoodService;
-import com.villain.healthtracker.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://127.0.0.1:3000")
 @RestController
-@RequestMapping("/api/foods")  //  Important
+@RequestMapping("/api/foods")
 public class FoodController {
 
     @Autowired
     private FoodService foodService;
 
-    //  Add food
+    // Create food
     @PostMapping
     public Food createFood(@RequestBody Food food) {
         return foodService.saveFood(food);
     }
 
-    //  Get all foods by userId
+    // Get all foods for a user
     @GetMapping("/user/{userId}")
     public List<Food> getFoodsByUser(@PathVariable String userId) {
         return foodService.getFoodsByUserId(userId);
     }
 
-    //  Get food by id
+    // Get food by id
     @GetMapping("/{id}")
-    public ResponseEntity<Food> getFoodById(@PathVariable String id) {
-        Food food = foodService.getFoodById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Food not found with id: " + id));
-        return ResponseEntity.ok(food);
+    public Food getFoodById(@PathVariable String id) {
+        return foodService.getFoodById(id);
     }
 
-    // ✅ Delete food
+    // Update food
+    @PutMapping("/{id}")
+    public Food updateFood(@PathVariable String id, @RequestBody Food food) {
+        return foodService.updateFood(id, food);
+    }
+
+    // Delete food
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteFood(@PathVariable String id) {
+    public String deleteFood(@PathVariable String id) {
         foodService.deleteFood(id);
-        return ResponseEntity.noContent().build();
+        return "Food with id " + id + " deleted successfully.";
     }
 }

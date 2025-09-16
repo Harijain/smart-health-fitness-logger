@@ -14,14 +14,23 @@ public class FoodService {
     @Autowired
     private FoodRepository foodRepo;
 
+    // Save food
     public Food saveFood(Food food) {
         return foodRepo.save(food);
     }
 
-    public List<Food> getFoodsByUser(String userId) {
+    // Get all foods by UserId
+    public List<Food> getFoodsByUserId(String userId) {
         return foodRepo.findByUserId(userId);
     }
 
+    // Get single food by Id
+    public Food getFoodById(String id) {
+        return foodRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Food not found with id: " + id));
+    }
+
+    // Update food
     public Food updateFood(String id, Food updatedFood) {
         return foodRepo.findById(id).map(food -> {
             food.setName(updatedFood.getName());
@@ -30,6 +39,7 @@ public class FoodService {
         }).orElseThrow(() -> new ResourceNotFoundException("Food not found with id: " + id));
     }
 
+    // Delete food
     public void deleteFood(String id) {
         if (foodRepo.existsById(id)) {
             foodRepo.deleteById(id);
