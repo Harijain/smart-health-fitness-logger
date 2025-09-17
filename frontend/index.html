@@ -3,73 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Smart Health & Fitness Logger</title>
+  <title>HealthTracker | Login</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
-
-  <nav class="navbar">
-    <h1>⚡ Smart Health & Fitness Logger</h1>
-    <div class="nav-links">
-      <button onclick="showPage('register')">Register</button>
-      <button onclick="showPage('food')">Food</button>
-      <button onclick="showPage('exercise')">Exercise</button>
-      <button onclick="showPage('sleep')">Sleep</button>
-      <button onclick="showPage('goal')">Goal</button>
-      <button onclick="showPage('summary')">Summary</button>
-    </div>
-  </nav>
-
-  <!-- Register -->
-  <section id="register" class="page">
-    <h2>👤 Register User</h2>
-    <input type="text" id="name" placeholder="Name">
-    <input type="email" id="email" placeholder="Email">
-    <button onclick="registerUser()">Register</button>
-  </section>
-
-  <!-- Food -->
-  <section id="food" class="page hidden">
-    <h2>🍎 Add Food</h2>
-    <input type="text" id="foodName" placeholder="Food Name">
-    <input type="number" id="calories" placeholder="Calories">
-    <button onclick="addFood()">Add Food</button>
-  </section>
-
-  <!-- Exercise -->
-  <section id="exercise" class="page hidden">
-    <h2>🏋️ Add Exercise</h2>
-    <input type="text" id="exerciseName" placeholder="Exercise Name">
-    <input type="number" id="burned" placeholder="Calories Burned">
-    <button onclick="addExercise()">Add Exercise</button>
-  </section>
-
-  <!-- Sleep -->
-  <section id="sleep" class="page hidden">
-    <h2>😴 Log Sleep</h2>
-    <input type="number" id="hours" placeholder="Hours Slept">
-    <button onclick="addSleep()">Log Sleep</button>
-  </section>
-
-  <!-- Goal -->
-  <section id="goal" class="page hidden">
-    <h2>🎯 Set Goal</h2>
-    <select id="goalType">
-      <option value="LOSE">Lose Weight</option>
-      <option value="GAIN">Gain Weight</option>
-      <option value="MAINTAIN">Maintain</option>
-    </select>
-    <input type="number" id="targetCalories" placeholder="Target Calories">
-    <button onclick="setGoal()">Set Goal</button>
-  </section>
-
-  <!-- Summary -->
-  <section id="summary" class="page hidden">
-    <h2>📊 Daily Summary</h2>
-    <button onclick="getSummary()">Refresh Summary</button>
-    <div id="summaryOutput" class="summary-cards"></div>
-  </section>
-
+<body class="login-body">
+  <div class="glass-card">
+    <h1 id="form-title">Login</h1>
+    <form id="auth-form">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <div id="extra-fields" style="display:none;">
+        <input type="email" id="email" placeholder="Email">
+      </div>
+      <button type="submit" id="submit-btn">Login</button>
+    </form>
+    <p id="toggle-text">Don’t have an account? <span id="toggle-link">Create one</span></p>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>

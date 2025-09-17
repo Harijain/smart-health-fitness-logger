@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HealthTracker | Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dash-body">
+  <nav class="navbar">
+    <h2>🏋️ HealthTracker</h2>
+    <button onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="nav">
+    <button onclick="showPage('food')">🍎 Food</button>
+    <button onclick="showPage('exercise')">💪 Exercise</button>
+    <button onclick="showPage('sleep')">😴 Sleep</button>
+    <button onclick="showPage('goal')">🎯 Goal</button>
+    <button onclick="showPage('summary')">📊 Summary</button>
+  </div>
+
+  <div class="container">
+
+    <!-- Food -->
+    <div id="food" class="page">
+      <div class="card">
+        <h3>Add Food</h3>
+        <input type="text" id="food-name" placeholder="Food Name">
+        <input type="number" id="food-calories" placeholder="Calories">
+        <button onclick="addFood()">Add Food</button>
+        <ul id="food-list"></ul>
+      </div>
+    </div>
+
+    <!-- Exercise -->
+    <div id="exercise" class="page hidden">
+      <div class="card">
+        <h3>Log Exercise</h3>
+        <input type="text" id="exercise-name" placeholder="Exercise Name">
+        <input type="number" id="exercise-duration" placeholder="Duration (min)">
+        <button onclick="logExercise()">Log Exercise</button>
+        <ul id="exercise-list"></ul>
+      </div>
+    </div>
+
+    <!-- Sleep -->
+    <div id="sleep" class="page hidden">
+      <div class="card">
+        <h3>Log Sleep</h3>
+        <input type="number" id="sleep-hours" placeholder="Hours Slept">
+        <button onclick="logSleep()">Log Sleep</button>
+        <ul id="sleep-list"></ul>
+      </div>
+    </div>
+
+    <!-- Goals -->
+    <div id="goal" class="page hidden">
+      <div class="card">
+        <h3>Set Goal</h3>
+        <select id="goalType">
+          <option value="LOSE">Lose Weight</option>
+          <option value="GAIN">Gain Weight</option>
+          <option value="MAINTAIN">Maintain</option>
+        </select>
+        <input type="number" id="targetCalories" placeholder="Target Calories">
+        <button onclick="setGoal()">Set Goal</button>
+        <ul id="goal-list"></ul>
+      </div>
+    </div>
+
+    <!-- Summary -->
+    
+
+  
+  <!-- Summary Page -->
+<div id="summary" class="page hidden">
+  <h2>Daily Summary</h2>
+  <div id="summary-content">
+    <p>Loading today's summary...</p>
+  </div>
+</div>
+
+
+  <script src="script.js"></script>
+</body>
+</html>
