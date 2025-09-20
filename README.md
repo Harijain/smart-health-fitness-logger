@@ -11,8 +11,8 @@ Built with **Spring Boot (backend)** and a **modern responsive frontend (HTML, C
 - 🍎 **Food Logging** – Add daily meals with calories  
 - 💪 **Exercise Tracking** – Track workouts & calories burned  
 - 😴 **Sleep Monitoring** – Log daily sleep hours  
-- 🎯 **Goal Management** – Set and monitor calorie/fitness goals  
-- 📊 **Daily Summary** – Get a consolidated report of your activities  
+- 🎯 **Goal Management** – Set and monitor calorie/fitness goals    
+- 📊 **Daily Summary** – Get a consolidated report of your activities    
 
 ---
 

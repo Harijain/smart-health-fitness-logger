@@ -6,6 +6,7 @@ com\villain\healthtracker\service\SleepService.class
 com\villain\healthtracker\model\Goal.class
 com\villain\healthtracker\model\Summary.class
 com\villain\healthtracker\controller\FoodController.class
+com\villain\healthtracker\config\WebConfig$1.class
 com\villain\healthtracker\controller\SummaryController.class
 com\villain\healthtracker\exception\ResourceNotFoundException.class
 com\villain\healthtracker\model\User.class
@@ -18,6 +19,7 @@ com\villain\healthtracker\exception\GlobalExceptionHandler.class
 com\villain\healthtracker\model\Food.class
 com\villain\healthtracker\controller\HealthController.class
 com\villain\healthtracker\model\Sleep.class
+com\villain\healthtracker\config\WebConfig.class
 com\villain\healthtracker\controller\GoalController.class
 com\villain\healthtracker\repository\FoodRepository.class
 com\villain\healthtracker\repository\SummaryRepository.class
